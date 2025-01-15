@@ -4,7 +4,7 @@ on: [push]
 jobs:
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps: 
       - name: Check out code
         uses: actions/checkout@v2
@@ -21,7 +21,7 @@ jobs:
             flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint
     steps:
       - name: Check out code
@@ -45,7 +45,7 @@ jobs:
           name: zipped-bundle
           path: ${{ github.sha }}.zip
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Create release
         id: create_release
@@ -59,6 +59,6 @@ jobs:
           draft: false
           prerelease: false
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: zipped-bundle
